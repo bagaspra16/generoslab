@@ -26,6 +26,7 @@ import MobileDock from "@/components/MobileDock";
 import CookieConsent from "@/components/CookieConsent";
 import InitialLoader from "@/components/InitialLoader";
 import ContentReveal from "@/components/ContentReveal";
+import BackgroundAudio from "@/components/BackgroundAudio";
 
 export default function RootLayout({
   children,
@@ -42,6 +43,7 @@ export default function RootLayout({
         <ContentReveal>{children}</ContentReveal>
         <MobileDock />
         <CookieConsent />
+        <BackgroundAudio />
       </body>
     </html>
   );
