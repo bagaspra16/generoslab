@@ -24,6 +24,8 @@ export const metadata: Metadata = {
 
 import MobileDock from "@/components/MobileDock";
 import CookieConsent from "@/components/CookieConsent";
+import InitialLoader from "@/components/InitialLoader";
+import ContentReveal from "@/components/ContentReveal";
 
 export default function RootLayout({
   children,
@@ -36,7 +38,8 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${dmSans.variable} ${playfair.variable} font-sans antialiased bg-white text-[#1a1a1a] overflow-hidden overscroll-none fixed inset-0 w-full h-full relative`}
       >
-        {children}
+        <InitialLoader />
+        <ContentReveal>{children}</ContentReveal>
         <MobileDock />
         <CookieConsent />
       </body>
