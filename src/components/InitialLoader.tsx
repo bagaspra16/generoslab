@@ -53,26 +53,26 @@ export default function InitialLoader() {
     >
       {/* Curtain panels — split open on exit */}
       <div
-        className={`absolute inset-y-0 left-0 w-1/2 bg-gradient-to-br from-white/50 via-white/30 to-white/50 backdrop-blur-2xl backdrop-saturate-150 transition-transform duration-[1100ms] ease-[cubic-bezier(0.77,0,0.18,1)] ${
+        className={`absolute inset-y-0 left-0 w-1/2 bg-gradient-to-br from-slate-900/80 via-slate-800/70 to-slate-900/80 backdrop-blur-2xl backdrop-saturate-150 transition-transform duration-[1100ms] ease-[cubic-bezier(0.77,0,0.18,1)] ${
           exiting ? "-translate-x-full" : "translate-x-0"
         }`}
       />
       <div
-        className={`absolute inset-y-0 right-0 w-1/2 bg-gradient-to-bl from-white/50 via-white/30 to-white/50 backdrop-blur-2xl backdrop-saturate-150 transition-transform duration-[1100ms] ease-[cubic-bezier(0.77,0,0.18,1)] ${
+        className={`absolute inset-y-0 right-0 w-1/2 bg-gradient-to-bl from-slate-900/80 via-slate-800/70 to-slate-900/80 backdrop-blur-2xl backdrop-saturate-150 transition-transform duration-[1100ms] ease-[cubic-bezier(0.77,0,0.18,1)] ${
           exiting ? "translate-x-full" : "translate-x-0"
         }`}
       />
 
-      {/* Subtle white wash that fades out */}
+      {/* Subtle dark wash that fades out */}
       <div
-        className={`absolute inset-0 bg-white/30 transition-opacity duration-700 ${
+        className={`absolute inset-0 bg-slate-950/60 transition-opacity duration-700 ${
           exiting ? "opacity-0" : "opacity-100"
         }`}
       />
 
       {/* Soft expanding glow pulse on exit */}
       <div
-        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-200/40 blur-3xl transition-all duration-[1000ms] ease-out ${
+        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500/30 blur-3xl transition-all duration-[1000ms] ease-out ${
           exiting
             ? "w-[1400px] h-[1400px] opacity-0"
             : "w-[400px] h-[400px] opacity-100"

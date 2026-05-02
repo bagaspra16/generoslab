@@ -11,7 +11,7 @@ export type CookieConsentValue = "accepted" | "declined";
 export function getCookieConsent(): CookieConsentValue | null {
   if (typeof window === "undefined") return null;
   const v = window.localStorage.getItem(STORAGE_KEY);
-  return v === "accepted" || v === "declined" ? v : null;
+  return v === "accepted" ? "accepted" : null;
 }
 
 export default function CookieConsent() {
@@ -26,16 +26,17 @@ export default function CookieConsent() {
     if (force) {
       window.localStorage.removeItem(STORAGE_KEY);
     }
-    const stored = getCookieConsent();
-    if (!stored) {
+    if (getCookieConsent() !== "accepted") {
       const t = window.setTimeout(() => setVisible(true), 800);
       return () => window.clearTimeout(t);
     }
   }, []);
 
   const decide = (value: CookieConsentValue) => {
-    window.localStorage.setItem(STORAGE_KEY, value);
-    if (value === "declined") {
+    if (value === "accepted") {
+      window.localStorage.setItem(STORAGE_KEY, "accepted");
+    } else {
+      window.localStorage.removeItem(STORAGE_KEY);
       window.localStorage.removeItem("generos.chatHistory");
     }
     window.dispatchEvent(new CustomEvent("cookie-consent-change", { detail: value }));

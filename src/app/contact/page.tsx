@@ -21,6 +21,7 @@ export default function ContactPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [hydrated, setHydrated] = useState(false);
+  const [consent, setConsent] = useState<"accepted" | "pending">("pending");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -28,7 +29,7 @@ export default function ContactPage() {
   };
 
   useEffect(() => {
-    if (getCookieConsent() === "accepted") {
+    const loadFromStorage = () => {
       try {
         const raw = window.localStorage.getItem(CHAT_STORAGE_KEY);
         if (raw) {
@@ -38,12 +39,21 @@ export default function ContactPage() {
           }
         }
       } catch {}
+    };
+
+    if (getCookieConsent() === "accepted") {
+      setConsent("accepted");
+      loadFromStorage();
     }
     setHydrated(true);
 
     const onConsent = (e: Event) => {
       const detail = (e as CustomEvent<"accepted" | "declined">).detail;
-      if (detail === "declined") {
+      if (detail === "accepted") {
+        setConsent("accepted");
+        loadFromStorage();
+      } else {
+        setConsent("pending");
         window.localStorage.removeItem(CHAT_STORAGE_KEY);
       }
     };
@@ -53,11 +63,11 @@ export default function ContactPage() {
 
   useEffect(() => {
     if (!hydrated) return;
-    if (getCookieConsent() !== "accepted") return;
+    if (consent !== "accepted") return;
     try {
       window.localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(messages));
     } catch {}
-  }, [messages, hydrated]);
+  }, [messages, hydrated, consent]);
 
   useEffect(() => {
     scrollToBottom();
